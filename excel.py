@@ -21,17 +21,24 @@ for row_idx, row_data in enumerate(data, start=2):
         sheet.cell(row=row_idx, column=col_idx, value=cell_value)
 
 obj=Calendar()
-month_days = obj.itermonthdays(2025, 10)
-print([x for x in month_days if x])
 
-
+month_days = [x for x in obj.itermonthdays(2025, 10) if x]
 monthnames = [x for x in calendar.month_name if x]
+dict_month={}
+for index, x in enumerate(monthnames):
+    dict_month[x] = [x for x in obj.itermonthdays(2025, index+1) if x]
 
-header = [x for x in sheet.iter_cols(min_row=1, max_row=1, max_col=12)]
-for index, row in enumerate(header):
-    row[0].value = deimuada[index] 
+print(dict_month)
     
 
+
+
+header = list(sheet.iter_cols(min_row=1, max_row=1, max_col=12))
+#print(header)
+
+listi=[]
+for index, row in enumerate(header):
+    row[0].value = monthnames[index] 
 
 
 wb.save("excel.xlsx")
