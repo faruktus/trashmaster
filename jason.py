@@ -3,8 +3,11 @@ from datetime import datetime, date
 from dateutil.relativedelta import relativedelta
 from itertools import count
 
-with open("deimuada.json", mode="r", encoding="utf-8") as read_file:
-       dict_interval = json.load(read_file)
+try:
+    with open("deimuada.json", mode="r", encoding="utf-8") as read_file:
+           dict_interval = json.load(read_file)
+except:
+    print("no file")
 
 #print(dict_interval)
 print()
@@ -75,6 +78,9 @@ print(len(set(listi)))
 
 garderobe = [date(2025, 11, 5), date(2025, 11, 6), date(2025, 11, 7)]
 vorraum = [date(2025, 11, 4), date(2025, 11, 5), date(2025, 11, 6), date(2025, 12, 3)]
+
+xx=date(2025,11,5)
+print(xx.strftime("%B %y, %d"))
 
 #print(f_CompMultilist(garderobe, deimuade))
 
