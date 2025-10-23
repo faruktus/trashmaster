@@ -1,6 +1,8 @@
 import json
 from datetime import datetime, date
 from dateutil.relativedelta import relativedelta
+from dateutil.rrule import *
+from dateutil.parser import *
 from itertools import count
 
 try:
@@ -13,7 +15,7 @@ except:
 #print()
 
 starting_date = date.today()
-plusyear = starting_date + relativedelta(years=1)
+plusyear = starting_date + relativedelta(months=11)
 
 # Compare 2 Lists for duplicates
 def f_CompList(firstList, secondList):
@@ -49,15 +51,15 @@ try:
     global calc
     for k,v in dict_interval.items():
         if v[0] == "Woche":
-          calc = round(365/53/v[1])
+          calc = int(334/47/v[1])
         if v[0]  == "Monat":
-          calc = round(365/12/v[1])
+          calc = int(334/11/v[1])
         if v[0]  == "Jahr":
-          calc = round(365/v[1])
+          calc = int(334/v[1])
 
         date_list=[]
         new_start = starting_date
-        while starting_date <= plusyear:#-relativedelta(days=calc)):
+        while starting_date <= (plusyear-relativedelta(days=calc)):
             starting_date += relativedelta(days=calc)
             #print(starting_date)
             date_list.append(starting_date)
@@ -66,14 +68,14 @@ try:
         #print()
 
         # clear duplicates
-        dict_values = [y for x in dict_days.values() for y in x]
-        dict_days[k] = f_CompMultilist(date_list, dict_values)
+        #dict_values = [y for x in dict_days.values() for y in x]
+        #dict_days[k] = f_CompMultilist(date_list, dict_values)
 
         starting_date=new_start   
 except:
     print("not enough/wrong data")
 
-print(dict_days)
+#print(dict_days)
 listi = [y for x in dict_days.values() for y in x]
 #print(len(listi))
 #print(len(set(listi)))
@@ -83,6 +85,9 @@ garderobe = [date(2025, 11, 5), date(2025, 11, 6), date(2025, 11, 7)]
 vorraum = [date(2025, 11, 4), date(2025, 11, 5), date(2025, 11, 6), date(2025, 12, 3)]
 
 xx=date(2025,11,5)
+
+
+
 #print(xx.strftime("%B %y, %d"))
 
 #print(f_CompMultilist(garderobe, deimuade))
