@@ -38,7 +38,7 @@ for i, (k, v) in enumerate(dict_month.items()):
         sheet.cell(row=row, column=col[i], value=day)
         row += 1
 
-# getCord = Function to get cell from a list formated ['Oktober 25', 
+# getCord = Function to get cell from a list formated ['Oktober 25', '31']
 header = sheet['A1':'X1'][0] 
 titlecol = sheet['A']
 def getCord(listi):
@@ -47,12 +47,14 @@ def getCord(listi):
     row = [x for x in titlecol if x.value==listi[1]][0].row
     return sheet.cell(column=column+1, row=row)
     
+# modify dict_days values to a list with excel coordinates e.g. {'Garderobe': [<Cell 'Data'.D9>,..]}
 for k, v in dict_days.items():
     temp_list=[]
     for values in v:
         temp_list.append(getCord([values.strftime("%B %y"), int(values.strftime("%d"))]))
     dict_days[k] = temp_list
 
+# write areas to the correct date in excel
 for k,v in dict_days.items():
     for val in v:
         if not val.value:
@@ -60,6 +62,7 @@ for k,v in dict_days.items():
         else:
             val.value = val.value + " | " + str(k)[:3]
 
+# set width of columns
 temp_list=[]
 for col_number in range(2,25,2):
     # adjust width for columns with daynumbers
@@ -71,35 +74,5 @@ for col_number in range(2,25,2):
         max_width = col[-1]
         sheet.column_dimensions[get_column_letter(col_number)].width=max_width
 
-
-        
-    
-
-
-        
-    
-
-
-
-"""    
-    for x in header[0]:
-    if x.value == tryout[0]:
-        print(x.column)
-
-sheet["A1"] = "Jänner"
-sheet["B1"] = "deivoda"
-sheet["C1"] = "bamoida"
-
-data = [["Alice", 25, "Nwq sodif"], ["Bob", 26, "lsdkjfl"], ["Charlie", 234, "csdf"]]
-
-for row_idx, row_data in enumerate(data, start=2):
-    for col_idx, cell_value in enumerate(row_data, start=1):
-        sheet.cell(row=row_idx, column=col_idx, value=cell_value)
-listi=[]
-for index, row in enumerate(header):
-    row[0].value = monthnames[index] 
-
-tryout = ['Februar 26', 21]
-"""
 
 wb.save("excel.xlsx")
