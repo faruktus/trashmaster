@@ -14,9 +14,6 @@ try:
 except:
     print("no file")
 
-#print(dict_interval)
-#print()
-
 starting_date = date.today()
 plusyear = starting_date + relativedelta(months=11)
 
@@ -71,8 +68,8 @@ try:
         #print()
 
         # clear duplicates
-        #dict_values = [y for x in dict_days.values() for y in x]
-        #dict_days[k] = f_CompMultilist(date_list, dict_values)
+        dict_values = [y for x in dict_days.values() for y in x]
+        dict_days[k] = f_CompMultilist(date_list, dict_values)
 
         starting_date=new_start   
 except:
@@ -150,7 +147,7 @@ for col_number in range(2,25,2):
     col = sheet.iter_cols(min_col=col_number, max_col=col_number, min_row=2, values_only=True)
     col = sorted([len(str(x)) for y in col for x in y if x])
     if col:
-        max_width = col[-1]
+        max_width = col[-1] + 1
         sheet.column_dimensions[get_column_letter(col_number)].width=max_width
 
 

@@ -1,17 +1,37 @@
 {
-  "Garderobe": [
-    "Monat",
+  "Bad": [
+    "Woche",
     2
   ],
   "Kinderzimmer": [
     "Monat",
     2
   ],
-  "Kueche": [
-    "Jahr",
-    14
-  ],
   "Schlafzimmer": [
+    "Woche",
+    1
+  ],
+  "Garderobe": [
+    "Monat",
+    1
+  ],
+  "K\u00fcche": [
+    "Monat",
+    1
+  ],
+  "Technikraum": [
+    "Monat",
+    1
+  ],
+  "Vorraum": [
+    "Monat",
+    3
+  ],
+  "WC": [
+    "Woche",
+    1
+  ],
+  "Wohnzimmer": [
     "Monat",
     2
   ]
