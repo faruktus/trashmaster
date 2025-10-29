@@ -156,7 +156,7 @@ for index, col_number in enumerate(range(2,25,2)):
     # check if string of header or daytasks is bigger
     header_width = len(monthnames[index])
     if col:
-        max_width = max([col[-1], header_width]) + 1
+        max_width = max([col[-1], header_width]) + 3
         sheet.column_dimensions[get_column_letter(col_number)].width=max_width
 
 
