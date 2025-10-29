@@ -16,7 +16,7 @@ Daten für den Putzplan eingeben:
 
 6. Die Daten des Putzplans werden im File "deimuada.json" gespeichert. Die Datei kann auch manuell bearbeitet werden.
 
->>> Zu jedem Zeitpunkt kann mit "save" gespeichert und beendet werden >>>
+Zu jedem Zeitpunkt kann mit "save" gespeichert und beendet werden!
 ------------------------------------------------------------------------------------------------------------
 
 Putzplan erstellen:
