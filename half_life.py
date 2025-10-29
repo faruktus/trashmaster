@@ -5,6 +5,7 @@ from datetime import datetime, date
 from dateutil.relativedelta import relativedelta
 from itertools import count
 from openpyxl.utils import get_column_letter
+from openpyxl.styles import Font, Alignment
 from openpyxl import Workbook
 from calendar import Calendar
 
@@ -67,18 +68,13 @@ try:
             dict_days[k] = date_list
         #print()
 
-        # clear duplicates
+        # spread multiple tasks on same day to different days
         dict_values = [y for x in dict_days.values() for y in x]
         dict_days[k] = f_CompMultilist(date_list, dict_values)
 
         starting_date=new_start   
 except:
     print("not enough/wrong data")
-
-#print(dict_days)
-#listi = [y for x in dict_days.values() for y in x]
-#print(len(listi))
-#print(len(set(listi)))
 
 
 # >>>>>>>>>>>>>>>>> WRITE DATA TO EXCEL <<<<<<<<<<<<<<<<
@@ -104,14 +100,23 @@ for index, x in enumerate(monthnames):
     dict_month[x] = [x for x in obj.itermonthdays(starting_year, 
                                                  ((index + starting_month-1)%12)+1) if x]
     
-# write dict_month to excel sheet and merge columns in header
+# write dict_month to excel sheet 
 col = [x for x in range(1, 24, 2)]
 for i, (k, v) in enumerate(dict_month.items()):
     sheet.cell(row=1, column=col[i], value=k)
+    # Format cells and merge >>>
+    sheet.cell(row=1, column=col[i]).font = Font(name='Calibri', size=12, bold=True)
+    sheet.cell(row=1, column=col[i]).alignment = Alignment(horizontal='center', vertical='center')
     sheet.merge_cells(start_column = col[i], end_column = col[i]+1, start_row=1, end_row=1)
+    # <<< Format cells and merge
     row = 2
     for day in v:
         sheet.cell(row=row, column=col[i], value=day)
+        # Format >>>
+        sheet.cell(row=row, column=col[i]).font = Font(name='Calibri', size=12, bold=True)
+        sheet.cell(row=row, column=col[i]).alignment = Alignment(horizontal='center', 
+                                                        vertical='center')
+        # <<< Format
         row += 1
 
 # getCord = Function to get cell from a list formated ['Oktober 25', '31']
@@ -133,6 +138,8 @@ for k, v in dict_days.items():
 # write areas to the correct date in excel
 for k,v in dict_days.items():
     for val in v:
+        # format
+        val.font = Font(name='Calibri', size=12)
         if not val.value:
             val.value = k[:3]
         else:
@@ -140,16 +147,18 @@ for k,v in dict_days.items():
 
 # set width of columns
 temp_list=[]
-for col_number in range(2,25,2):
+for index, col_number in enumerate(range(2,25,2)):
     # adjust width for columns with daynumbers
     sheet.column_dimensions[get_column_letter(col_number-1)].width=4
-    # adjust with for columns with areas
+    # adjust width for columns with areas
     col = sheet.iter_cols(min_col=col_number, max_col=col_number, min_row=2, values_only=True)
     col = sorted([len(str(x)) for y in col for x in y if x])
+    # check if string of header or daytasks is bigger
+    header_width = len(monthnames[index])
     if col:
-        max_width = col[-1] + 1
+        max_width = max([col[-1], header_width]) + 1
         sheet.column_dimensions[get_column_letter(col_number)].width=max_width
 
 
-wb.save("excel.xlsx")
+wb.save("half_life.xlsx")
 

@@ -1,7 +1,7 @@
 {
   "Bad": [
     "Woche",
-    2
+    1
   ],
   "Kinderzimmer": [
     "Monat",
@@ -15,17 +15,17 @@
     "Monat",
     1
   ],
-  "K\u00fcche": [
+  "Kueche": [
     "Monat",
-    1
+    2
   ],
   "Technikraum": [
     "Monat",
     1
   ],
   "Vorraum": [
-    "Monat",
-    3
+    "Woche",
+    1
   ],
   "WC": [
     "Woche",

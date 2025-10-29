@@ -1,13 +1,16 @@
 import json
 
-with open("deimuada.json", mode="r", encoding="utf-8") as json_file:
-    dict_interval = json.load(json_file)
+try:
+    with open("deimuada.json", mode="r", encoding="utf-8") as json_file:
+        dict_interval = json.load(json_file)
+except:
+    print("no data file available - will now be produced")
+    dict_interval={}
 
-Bereiche = ["Vorraum", "Garderobe", "WC", "Technikraum", "Küche", "Wohnzimmer",
+Bereiche = ["Vorraum", "Garderobe", "WC", "Technikraum", "Kueche", "Wohnzimmer",
             "Schlafzimmer", "Kinderzimmer", "Bad"]
 dict_Bereiche = {i+1: x for i, x in enumerate(sorted(Bereiche))}
 
-#dict_interval={}
 Putzintervall = {1: "Woche", 2: "Monat", 3: "Jahr"}
 
 def hyphen_line():
@@ -33,10 +36,10 @@ def formated_output():
     print(dict_Bereiche)
     hyphen_line()
 
-break_code = "fertig"
+break_code = "save"
 while True:
     formated_output()
-    auswahl_Bereich = input("Treffen Sie eine Wahl (Zahl angeben): ")
+    auswahl_Bereich = input("Treffen Sie eine Wahl (Zahl angeben) oder Beenden mit \"" + break_code + "\": ")
     if auswahl_Bereich == break_code:
         break
     try:
@@ -54,7 +57,7 @@ while True:
     print()
     plus_format("Soll der Bereich >>" + auswahl_Bereich + "<< wöchentlich, monatlich oder jährlich geputzt werden?")
     print(Putzintervall)
-    eingabe_Zeitrahmen = input("Treffen Sie eine Wahl (Zahl angeben): ")
+    eingabe_Zeitrahmen = input("Treffen Sie eine Wahl (Zahl angeben) oder Beenden mit \"" + break_code + "\": ")
     if eingabe_Zeitrahmen == break_code:
         break
     try:
@@ -69,10 +72,10 @@ while True:
 
     print()
     plus_format("Wie oft pro " + eingabe_Zeitrahmen + " soll geputzt werden?")
-    eingabe_Intervall = input("Bitte Intervall als Zahl angeben: ")
+    eingabe_Intervall = input("Bitte Intervall als Zahl angeben oder Beenden mit \"" + break_code + "\": ")
     print()
     print(80*'x')
-    print("Änderungen wurden übernommen! Wenn Sie beenden wollen tippen Sie ".upper() + break_code + "!")
+    print("Änderungen wurden übernommen!".upper())
     print("Zum Fortfahren, wählen Sie einen neuen Bereich aus: ".upper())
     print(80*'x')
     if eingabe_Intervall == break_code:
@@ -84,12 +87,9 @@ while True:
         continue
 
     dict_interval[auswahl_Bereich]= [eingabe_Zeitrahmen, eingabe_Intervall]
-    #print(dict_interval)
     print()
         
 with open("deimuada.json", mode="w", encoding="utf-8") as write_file:
     json.dump(dict_interval, write_file, indent=2)
 
-#print(dict_interval)
-#dict_interval = {'Garderobe': ['Woche', 1], 'Vorraum': ['Monat', 1], 'WC': ['Jahr', 3]}
 
